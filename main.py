@@ -57,8 +57,7 @@ class main:
             print(" -> next page")
             time.sleep(1)
                     
-        images[0].save(self.path, save_all = True, append_images = images[1:])
-
+        
         self.flag = False
     
     def mouse_check(self):

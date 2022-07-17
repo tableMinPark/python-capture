@@ -1,1 +1,4 @@
 pyautogui==0.9.53
+mouse==0.7.1
+pyqt5==5.15.7
+pyside2==5.15.2.1
