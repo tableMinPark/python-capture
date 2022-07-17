@@ -1,4 +1,3 @@
-from importlib.resources import path
 import os
 import sys
 import time
@@ -113,13 +112,21 @@ class main_repec(QtWidgets.QDialog):
             time.sleep(0.5)
             self.log_append_Signal.emit("{0} page complete".format(len(images)))
 
-            self.process_bar_Signal.emit(100 / self.page * len(images))
+            percent = 100 / self.page * len(images)
+            if percent >= 99:
+                percent = 99
+            self.process_bar_Signal.emit(percent)
 
             ms.moveTo(self.cursor_point.x, self.cursor_point.y)
             ms.click(button = 'left')
             time.sleep(1)
 
+        self.process_bar_Signal.emit(99)      
+        self.log_append_Signal.emit("Capture finish -> Make PDF...")
+
+        time.sleep(1)
         images[0].save(self.path, save_all = True, append_images = images[1:])
+        time.sleep(1)
         self.process_bar_Signal.emit(100)        
         self.log_append_Signal.emit("'{0}' Save!".format(self.path))
         self.log_append_Signal.emit("-------------------------------------------------------")
